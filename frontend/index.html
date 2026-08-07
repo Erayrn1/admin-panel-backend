@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>👻 Karanlık Hat Korku Evi Admin Paneli</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <!-- Floating ghosts -->
+  <div class="ghost ghost-1">👻</div>
+  <div class="ghost ghost-2">👻</div>
+  <div class="skull skull-1">💀</div>
+  <div class="skull skull-2">💀</div>
+  <div class="bat bat-1">🦇</div>
+  <div class="bat bat-2">🦇</div>
+  <div class="bat bat-3">🦇</div>
+
+  <!-- Spider web decorations -->
+  <div class="spider-web spider-web-tl">🕸️</div>
+  <div class="spider-web spider-web-tr">🕸️</div>
+  <div class="spider spider-1">🕷️</div>
+  <div class="spider spider-2">🕷️</div>
+
+  <!-- Blood drips -->
+  <div class="blood-container">
+    <div class="drip drip-1"></div>
+    <div class="drip drip-2"></div>
+    <div class="drip drip-3"></div>
+    <div class="drip drip-4"></div>
+    <div class="drip drip-5"></div>
+  </div>
+
+  <!-- Eyes that follow cursor -->
+  <div class="eyes-container" id="eyesContainer">
+    <div class="eye" id="eyeLeft">
+      <div class="pupil" id="pupilLeft"></div>
+    </div>
+    <div class="eye" id="eyeRight">
+      <div class="pupil" id="pupilRight"></div>
+    </div>
+  </div>
+
+  <!-- Main login form -->
+  <div class="login-container">
+    <div class="login-box">
+      <div class="title-container">
+        <h1 class="title glitch" data-text="KARANLIK HAT KORKU EVİ ADMİN PANELİ">KARANLIK HAT KORKU EVİ ADMİN PANELİ</h1>
+        <p class="subtitle">⚰️ Admin Paneli ⚰️</p>
+      </div>
+
+      <form id="loginForm" class="login-form" novalidate>
+        <div class="form-group">
+          <label for="username">🕷️ Kullanıcı Adı</label>
+          <input
+            type="text"
+            id="username"
+            name="username"
+            value="erayrn"
+            placeholder="Ruhunu gir..."
+            autocomplete="username"
+            required
+          />
+        </div>
+
+        <div class="form-group">
+          <label for="password">🔐 Şifre</label>
+          <input
+            type="password"
+            id="password"
+            name="password"
+            placeholder="Kan ile mühürle..."
+            autocomplete="current-password"
+            required
+          />
+        </div>
+
+        <button type="submit" class="login-btn" id="loginBtn">
+          <span id="btnText">🚪 AYDIR KAPIYI</span>
+          <span id="btnLoading" style="display:none;">⏳ Girilyor...</span>
+        </button>
+
+        <p id="errorMsg" class="error-msg" style="display:none;"></p>
+      </form>
+    </div>
+  </div>
+
+  <!-- Warning overlay for failed login -->
+  <div class="overlay" id="warningOverlay" style="display:none;">
+    <div class="overlay-box">
+      <div class="overlay-icon">💀</div>
+      <h2>GİRİŞ REDDEDİLDİ!</h2>
+      <p id="overlayMsg">Yanlış bilgiler. Ruhun kabul edilmedi!</p>
+      <button class="overlay-close-btn" id="overlayCloseBtn">Geri Dön 👻</button>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>

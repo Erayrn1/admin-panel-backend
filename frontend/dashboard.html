@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>👻 Karanlık Hat Korku Evi - Dashboard</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body class="dashboard-body">
+  <header class="dashboard-header">
+    <h1>👻 KARANLIK HAT KORKU EVİ ADMİN PANELİ</h1>
+    <button class="logout-btn" id="logoutBtn">🚪 Çıkış Yap</button>
+  </header>
+
+  <main class="dashboard-main">
+    <section class="welcome-section">
+      <h2>Hoş Geldin, <span id="displayUsername">???</span>! 💀</h2>
+      <p>⚰️ Karanlık alemde seni bekliyorduk...</p>
+    </section>
+
+    <section class="stats-grid">
+      <div class="stat-card">
+        <div class="stat-icon">👻</div>
+        <div class="stat-label">Hayaletler</div>
+        <div class="stat-value" id="statGhosts">0</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-icon">💀</div>
+        <div class="stat-label">Kafatasları</div>
+        <div class="stat-value" id="statSkulls">0</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-icon">🦇</div>
+        <div class="stat-label">Yarasalar</div>
+        <div class="stat-value" id="statBats">0</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-icon">🕷️</div>
+        <div class="stat-label">Örümcekler</div>
+        <div class="stat-value" id="statSpiders">0</div>
+      </div>
+    </section>
+
+    <section class="session-section">
+      <h3>🔐 Oturum Bilgileri</h3>
+      <div class="session-info">
+        <div class="session-row">
+          <span class="session-key">👤 Kullanıcı Adı:</span>
+          <span class="session-val" id="sessionUsername">-</span>
+        </div>
+        <div class="session-row">
+          <span class="session-key">⏰ Giriş Zamanı:</span>
+          <span class="session-val" id="sessionTime">-</span>
+        </div>
+        <div class="session-row">
+          <span class="session-key">🔑 Token (önizleme):</span>
+          <span class="session-val" id="sessionToken">-</span>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <script src="dashboard.js"></script>
+</body>
+</html>
