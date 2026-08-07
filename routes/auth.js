@@ -111,33 +111,28 @@ router.post('/register', authRateLimit, async (req, res, next) => {
 
 router.post('/login', authRateLimit, async (req, res, next) => {
   try {
-    const { email, password } = req.body;
+    const { username, password } = req.body;
 
-    if (!email || !password) {
-      return sendResponse(res, 400, false, 'Email and password are required');
+    if (!username || !password) {
+      return sendResponse(res, 400, false, 'Username and password are required');
     }
 
-    if (!isValidEmail(email)) {
-      return sendResponse(res, 400, false, 'A valid email address is required');
+    const ADMIN_USERNAME = process.env.ADMIN_USERNAME || 'erayrn';
+    const ADMIN_PASSWORD = process.env.ADMIN_PASSWORD || 'erayrn321';
+
+    if (username !== ADMIN_USERNAME || password !== ADMIN_PASSWORD) {
+      return sendResponse(res, 401, false, 'Invalid username or password');
     }
 
-    const user = await User.findOne({ email: email.toLowerCase().trim() }).select('+password');
+    const token = jwt.sign({ username: ADMIN_USERNAME, role: 'admin' }, process.env.JWT_SECRET, {
+      expiresIn: '7d',
+    });
 
-    if (!user || !(await user.comparePassword(password))) {
-      return sendResponse(res, 401, false, 'Invalid email or password');
-    }
-
-    const token = createToken(user);
-
-    return sendResponse(res, 200, true, 'Login successful', {
+    return sendResponse(res, 200, true, 'Login başarılı', {
       token,
       user: {
-        id: user._id,
-        firstName: user.firstName,
-        lastName: user.lastName,
-        email: user.email,
-        role: user.role,
-        createdAt: user.createdAt,
+        username: ADMIN_USERNAME,
+        role: 'admin',
       },
     });
   } catch (error) {

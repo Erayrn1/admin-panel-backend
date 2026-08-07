@@ -3,9 +3,9 @@ require('dotenv').config();
 const express = require('express');
 const cors = require('cors');
 
-const connectDB = require('./config/database');
-const authRoutes = require('./routes/auth');
-const reservationRoutes = require('./routes/reservations');
+const connectDB = require('../config/database');
+const authRoutes = require('../routes/auth');
+const reservationRoutes = require('../routes/reservations');
 
 const app = express();
 
@@ -57,7 +57,7 @@ app.get('/api/health', (req, res) => {
 app.use('/api/auth', authRoutes);
 app.use('/api/reservations', reservationRoutes);
 
-const { protect } = require('./middleware/auth');
+const { protect } = require('../middleware/auth');
 
 app.get('/api/dashboard', protect, (req, res) => {
   res.status(200).json({
@@ -110,7 +110,4 @@ if (require.main === module) {
   });
 }
 
-module.exports = {
-  app,
-  startServer,
-};
+module.exports = app;

@@ -19,6 +19,12 @@ const protect = async (req, res, next) => {
 
     const token = authHeader.split(' ')[1];
     const decoded = jwt.verify(token, process.env.JWT_SECRET);
+
+    if (decoded.role === 'admin' && decoded.username) {
+      req.user = { username: decoded.username, role: 'admin' };
+      return next();
+    }
+
     const user = await User.findById(decoded.id).select('-password -resetPasswordToken -resetPasswordExpires');
 
     if (!user) {
