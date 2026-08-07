@@ -14,6 +14,11 @@ function checkAuth() {
     }
 }
 
+// Navigate to page
+function goToPage(page) {
+    window.location.href = page;
+}
+
 // Login form handler
 document.addEventListener('DOMContentLoaded', function() {
     checkAuth();
