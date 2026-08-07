@@ -5,7 +5,9 @@ const cors = require('cors');
 
 const connectDB = require('./config/database');
 const authRoutes = require('./routes/auth');
+const dashboardRoutes = require('./routes/dashboard');
 const reservationRoutes = require('./routes/reservations');
+const userRoutes = require('./routes/users');
 
 const app = express();
 
@@ -47,6 +49,8 @@ app.get('/api/health', (req, res) => {
 });
 
 app.use('/api/auth', authRoutes);
+app.use('/api/users', userRoutes);
+app.use('/api/dashboard', dashboardRoutes);
 app.use('/api/reservations', reservationRoutes);
 
 app.use('/api/*', (req, res) => {

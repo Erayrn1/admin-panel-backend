@@ -29,13 +29,13 @@ npm install
 
 ## Environment Variables
 
-Use the included `.env` template in the root directory, or create a local copy with these values:
+Copy `.env.example` to `.env` and update values:
 
 ```
-MONGODB_URI=******cluster.mongodb.net/admin-panel
+MONGODB_URI=mongodb+srv://<username>:<password>@cluster0.xvfshue.mongodb.net/admin-panel?retryWrites=true&w=majority
 JWT_SECRET=your_super_secret_jwt_key_change_this
 PORT=5000
-NODE_ENV=development
+NODE_ENV=production
 FRONTEND_URL=https://admin-panel-9zcg-jet.vercel.app
 ```
 
@@ -66,17 +66,27 @@ npm start
 - `DELETE /api/reservations/:id` - Delete reservation
 - `GET /api/reservations/stats/overview` - Get dashboard statistics
 
+### Users
+- `GET /api/users` - Get all users (admin only)
+
+### Dashboard
+- `GET /api/dashboard` - Get admin dashboard summary stats
+
 ## Project Structure
 
 ```
 admin-panel-backend/
+├── api/
+│   └── index.js
 ├── server.js
 ├── package.json
-├── .env
+├── .env.example
 ├── .gitignore
 ├── routes/
 │   ├── auth.js
-│   └── reservations.js
+│   ├── dashboard.js
+│   ├── reservations.js
+│   └── users.js
 ├── models/
 │   ├── User.js
 │   └── Reservation.js
