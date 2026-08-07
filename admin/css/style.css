@@ -1,0 +1,274 @@
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700;900&family=Crimson+Text:ital,wght@0,400;0,600;1,400&display=swap');
+
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+:root {
+  --bg-primary: #080507;
+  --bg-card: #0e080b;
+  --accent: #e20f27;
+  --accent-dark: #8b0000;
+  --accent-glow: rgba(226, 15, 39, 0.55);
+  --text-primary: #f7f3f4;
+  --text-muted: #a08a8e;
+  --border: rgba(226, 15, 39, 0.25);
+  --input-bg: rgba(255, 255, 255, 0.04);
+}
+
+html, body {
+  height: 100%;
+  width: 100%;
+}
+
+body {
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+  font-family: 'Crimson Text', serif;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  position: relative;
+}
+
+/* Animated horror background */
+.bg-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  background:
+    radial-gradient(ellipse at 20% 50%, rgba(139, 0, 0, 0.18) 0%, transparent 60%),
+    radial-gradient(ellipse at 80% 20%, rgba(226, 15, 39, 0.10) 0%, transparent 50%),
+    radial-gradient(ellipse at 60% 80%, rgba(80, 0, 0, 0.20) 0%, transparent 55%),
+    linear-gradient(160deg, #100309 0%, #080507 40%, #0d0108 70%, #120009 100%);
+  animation: bgPulse 8s ease-in-out infinite alternate;
+}
+
+@keyframes bgPulse {
+  0%   { opacity: 0.85; }
+  50%  { opacity: 1; }
+  100% { opacity: 0.9; }
+}
+
+/* Noise texture via pseudo-element */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  z-index: 1;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.05'/%3E%3C/svg%3E");
+  background-repeat: repeat;
+  background-size: 200px 200px;
+  pointer-events: none;
+  opacity: 0.6;
+}
+
+/* Login container */
+.login-container {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  max-width: 420px;
+  padding: 1.5rem;
+}
+
+/* Card */
+.login-card {
+  background: linear-gradient(145deg, rgba(18, 5, 8, 0.96) 0%, rgba(14, 8, 11, 0.98) 100%);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  padding: 2.8rem 2.4rem 2.4rem;
+  box-shadow:
+    0 0 30px rgba(226, 15, 39, 0.12),
+    0 0 80px rgba(139, 0, 0, 0.08),
+    0 20px 60px rgba(0, 0, 0, 0.7),
+    inset 0 1px 0 rgba(226, 15, 39, 0.08);
+  animation: cardAppear 0.6s ease-out;
+}
+
+@keyframes cardAppear {
+  from {
+    opacity: 0;
+    transform: translateY(-18px) scale(0.97);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+/* Logo / header */
+.logo {
+  text-align: center;
+  margin-bottom: 2.2rem;
+}
+
+.skull {
+  display: block;
+  font-size: 2.6rem;
+  margin-bottom: 0.5rem;
+  animation: skullPulse 3s ease-in-out infinite;
+  filter: drop-shadow(0 0 8px var(--accent));
+}
+
+@keyframes skullPulse {
+  0%, 100% { filter: drop-shadow(0 0 6px var(--accent)); transform: scale(1); }
+  50%       { filter: drop-shadow(0 0 16px var(--accent)); transform: scale(1.06); }
+}
+
+.logo h1 {
+  font-family: 'Cinzel', serif;
+  font-weight: 900;
+  font-size: 1.55rem;
+  letter-spacing: 0.18em;
+  color: var(--text-primary);
+  text-shadow: 0 0 18px var(--accent-glow), 0 0 40px rgba(226, 15, 39, 0.25);
+  text-transform: uppercase;
+}
+
+.subtitle {
+  margin-top: 0.35rem;
+  font-size: 0.82rem;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+
+/* Divider */
+.logo::after {
+  content: '';
+  display: block;
+  height: 1px;
+  margin: 1.4rem auto 0;
+  width: 60%;
+  background: linear-gradient(90deg, transparent, var(--accent), transparent);
+  box-shadow: 0 0 6px var(--accent-glow);
+}
+
+/* Form groups */
+.form-group {
+  margin-bottom: 1.3rem;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 0.45rem;
+  font-size: 0.78rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+
+.form-group input {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  background: var(--input-bg);
+  border: 1px solid var(--border);
+  border-radius: 3px;
+  color: var(--text-primary);
+  font-family: 'Crimson Text', serif;
+  font-size: 1.05rem;
+  outline: none;
+  transition: border-color 0.25s, box-shadow 0.25s;
+}
+
+.form-group input::placeholder {
+  color: rgba(160, 138, 142, 0.5);
+}
+
+.form-group input:focus {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 2px rgba(226, 15, 39, 0.18), 0 0 12px rgba(226, 15, 39, 0.2);
+}
+
+/* Error message */
+.error-msg {
+  min-height: 1.4rem;
+  margin-bottom: 1rem;
+  font-size: 0.88rem;
+  color: var(--accent);
+  text-align: center;
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+.error-msg.visible {
+  opacity: 1;
+}
+
+/* Login button */
+.login-btn {
+  width: 100%;
+  padding: 0.85rem;
+  background: linear-gradient(135deg, #8b0000 0%, var(--accent) 100%);
+  border: none;
+  border-radius: 3px;
+  color: #fff;
+  font-family: 'Cinzel', serif;
+  font-size: 0.9rem;
+  font-weight: 700;
+  letter-spacing: 0.22em;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 0 18px rgba(226, 15, 39, 0.35), 0 4px 15px rgba(0, 0, 0, 0.5);
+  transition: box-shadow 0.25s, transform 0.15s;
+}
+
+.login-btn::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: rgba(255, 255, 255, 0);
+  transition: background 0.2s;
+}
+
+.login-btn:hover {
+  box-shadow: 0 0 28px rgba(226, 15, 39, 0.6), 0 6px 20px rgba(0, 0, 0, 0.6);
+  transform: translateY(-1px);
+}
+
+.login-btn:hover::after {
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.login-btn:active {
+  transform: translateY(1px);
+  box-shadow: 0 0 12px rgba(226, 15, 39, 0.4);
+}
+
+.login-btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none;
+}
+
+/* Shake animation for wrong credentials */
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  15%       { transform: translateX(-6px); }
+  30%       { transform: translateX(6px); }
+  45%       { transform: translateX(-5px); }
+  60%       { transform: translateX(5px); }
+  75%       { transform: translateX(-3px); }
+  90%       { transform: translateX(3px); }
+}
+
+.shake {
+  animation: shake 0.55s ease-in-out;
+}
+
+/* Responsive */
+@media (max-width: 480px) {
+  .login-card {
+    padding: 2rem 1.6rem 2rem;
+  }
+
+  .logo h1 {
+    font-size: 1.25rem;
+  }
+}
