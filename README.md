@@ -29,14 +29,14 @@ npm install
 
 ## Environment Variables
 
-Create a `.env` file in the root directory:
+Use the included `.env` template in the root directory, or create a local copy with these values:
 
 ```
-MONGODB_URI=your_mongodb_connection_string
-JWT_SECRET=your_jwt_secret_key
+MONGODB_URI=******cluster.mongodb.net/admin-panel
+JWT_SECRET=your_super_secret_jwt_key_change_this
 PORT=5000
 NODE_ENV=development
-FRONTEND_URL=http://localhost:3000
+FRONTEND_URL=https://admin-panel-9zcg-jet.vercel.app
 ```
 
 ## Running the Server
