@@ -3,11 +3,9 @@ const mongoose = require('mongoose');
 
 const Reservation = require('../models/Reservation');
 const { authorize, protect } = require('../middleware/auth');
+const rateLimit = require('../middleware/rateLimit');
 
 const router = express.Router();
-
-const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-const PHONE_REGEX = /^\+?[0-9()\-\s]{7,20}$/;
 
 const sendResponse = (res, statusCode, success, message, data = {}) =>
   res.status(statusCode).json({
@@ -15,6 +13,61 @@ const sendResponse = (res, statusCode, success, message, data = {}) =>
     message,
     data,
   });
+
+const isValidEmail = (value) => {
+  if (typeof value !== 'string') {
+    return false;
+  }
+
+  const email = value.trim();
+  const atIndex = email.indexOf('@');
+
+  if (!email || atIndex <= 0 || atIndex !== email.lastIndexOf('@') || atIndex === email.length - 1) {
+    return false;
+  }
+
+  const localPart = email.slice(0, atIndex);
+  const domainPart = email.slice(atIndex + 1);
+  const dotIndex = domainPart.indexOf('.');
+
+  return Boolean(localPart) && dotIndex > 0 && dotIndex < domainPart.length - 1 && !domainPart.includes(' ');
+};
+
+const isValidPhoneNumber = (value) => {
+  if (typeof value !== 'string') {
+    return false;
+  }
+
+  const trimmed = value.trim();
+
+  if (trimmed.length < 7 || trimmed.length > 20) {
+    return false;
+  }
+
+  let digitCount = 0;
+
+  for (const character of trimmed) {
+    const isDigit = character >= '0' && character <= '9';
+    if (isDigit) {
+      digitCount += 1;
+      continue;
+    }
+
+    if (!['+', '(', ')', '-', ' '].includes(character)) {
+      return false;
+    }
+  }
+
+  return digitCount >= 7;
+};
+
+router.use(
+  rateLimit({
+    windowMs: 15 * 60 * 1000,
+    max: 300,
+    keyPrefix: 'reservations',
+  })
+);
 
 const validateReservationPayload = (payload, { partial = false } = {}) => {
   const requiredFields = ['date', 'time', 'numberOfPeople', 'phoneNumber', 'email'];
@@ -41,11 +94,11 @@ const validateReservationPayload = (payload, { partial = false } = {}) => {
     }
   }
 
-  if (payload.phoneNumber !== undefined && !PHONE_REGEX.test(payload.phoneNumber)) {
+  if (payload.phoneNumber !== undefined && !isValidPhoneNumber(payload.phoneNumber)) {
     return 'A valid phone number is required';
   }
 
-  if (payload.email !== undefined && !EMAIL_REGEX.test(payload.email)) {
+  if (payload.email !== undefined && !isValidEmail(payload.email)) {
     return 'A valid email address is required';
   }
 

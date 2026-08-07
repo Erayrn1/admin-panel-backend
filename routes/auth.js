@@ -4,10 +4,9 @@ const jwt = require('jsonwebtoken');
 
 const User = require('../models/User');
 const { protect } = require('../middleware/auth');
+const rateLimit = require('../middleware/rateLimit');
 
 const router = express.Router();
-
-const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
 const sendResponse = (res, statusCode, success, message, data = {}) =>
   res.status(statusCode).json({
@@ -16,17 +15,44 @@ const sendResponse = (res, statusCode, success, message, data = {}) =>
     data,
   });
 
+const isValidEmail = (value) => {
+  if (typeof value !== 'string') {
+    return false;
+  }
+
+  const email = value.trim();
+  const atIndex = email.indexOf('@');
+
+  if (!email || atIndex <= 0 || atIndex !== email.lastIndexOf('@') || atIndex === email.length - 1) {
+    return false;
+  }
+
+  const localPart = email.slice(0, atIndex);
+  const domainPart = email.slice(atIndex + 1);
+  const dotIndex = domainPart.indexOf('.');
+
+  return Boolean(localPart) && dotIndex > 0 && dotIndex < domainPart.length - 1 && !domainPart.includes(' ');
+};
+
 const createToken = (user) =>
   jwt.sign({ id: user._id, role: user.role }, process.env.JWT_SECRET, {
     expiresIn: '7d',
   });
+
+router.use(
+  rateLimit({
+    windowMs: 15 * 60 * 1000,
+    max: 50,
+    keyPrefix: 'auth',
+  })
+);
 
 const validateRegistration = ({ firstName, lastName, email, password }) => {
   if (!firstName || !lastName || !email || !password) {
     return 'firstName, lastName, email, and password are required';
   }
 
-  if (!EMAIL_REGEX.test(email)) {
+  if (!isValidEmail(email)) {
     return 'A valid email address is required';
   }
 
@@ -87,7 +113,7 @@ router.post('/login', async (req, res, next) => {
       return sendResponse(res, 400, false, 'Email and password are required');
     }
 
-    if (!EMAIL_REGEX.test(email)) {
+    if (!isValidEmail(email)) {
       return sendResponse(res, 400, false, 'A valid email address is required');
     }
 
@@ -119,7 +145,7 @@ router.post('/forgot-password', async (req, res, next) => {
   try {
     const { email } = req.body;
 
-    if (!email || !EMAIL_REGEX.test(email)) {
+    if (!email || !isValidEmail(email)) {
       return sendResponse(res, 400, false, 'A valid email address is required');
     }
 
