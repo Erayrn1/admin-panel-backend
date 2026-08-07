@@ -1,10 +1,10 @@
 const crypto = require('crypto');
 const express = require('express');
+const { rateLimit } = require('express-rate-limit');
 const jwt = require('jsonwebtoken');
 
 const User = require('../models/User');
 const { protect } = require('../middleware/auth');
-const rateLimit = require('../middleware/rateLimit');
 
 const router = express.Router();
 
@@ -42,7 +42,13 @@ const createToken = (user) =>
 const authRateLimit = rateLimit({
   windowMs: 15 * 60 * 1000,
   max: 50,
-  keyPrefix: 'auth',
+  standardHeaders: true,
+  legacyHeaders: false,
+  message: {
+    success: false,
+    message: 'Too many requests, please try again later',
+    data: {},
+  },
 });
 
 const validateRegistration = ({ firstName, lastName, email, password }) => {

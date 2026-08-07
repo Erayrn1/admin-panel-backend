@@ -1,9 +1,9 @@
 const express = require('express');
+const { rateLimit } = require('express-rate-limit');
 const mongoose = require('mongoose');
 
 const Reservation = require('../models/Reservation');
 const { authorize, protect } = require('../middleware/auth');
-const rateLimit = require('../middleware/rateLimit');
 
 const router = express.Router();
 
@@ -64,7 +64,13 @@ const isValidPhoneNumber = (value) => {
 const reservationRateLimit = rateLimit({
   windowMs: 15 * 60 * 1000,
   max: 300,
-  keyPrefix: 'reservations',
+  standardHeaders: true,
+  legacyHeaders: false,
+  message: {
+    success: false,
+    message: 'Too many requests, please try again later',
+    data: {},
+  },
 });
 
 const validateReservationPayload = (payload, { partial = false } = {}) => {
