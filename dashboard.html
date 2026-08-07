@@ -13,8 +13,8 @@
                 <h1>Admin Panel</h1>
             </div>
             <div class="navbar-menu">
-                <a href="#" class="nav-item">Anasayfa</a>
-                <a href="#" class="nav-item">Ayarlar</a>
+                <a href="dashboard.html" class="nav-item">Anasayfa</a>
+                <a href="settings.html" class="nav-item">Ayarlar</a>
                 <button onclick="logout()" class="nav-item logout-btn">Çıkış Yap</button>
             </div>
         </nav>
@@ -26,22 +26,22 @@
             </div>
 
             <div class="dashboard-grid">
-                <div class="dashboard-card">
+                <div class="dashboard-card" onclick="goToPage('statistics.html')">
                     <h3>📊 İstatistikler</h3>
                     <p>Sistem istatistikleri ve verilerini görüntüleyin</p>
                 </div>
 
-                <div class="dashboard-card">
+                <div class="dashboard-card" onclick="goToPage('settings.html')">
                     <h3>⚙️ Ayarlar</h3>
                     <p>Panel ayarlarını ve tercihlerinizi yönetin</p>
                 </div>
 
-                <div class="dashboard-card">
+                <div class="dashboard-card" onclick="goToPage('profile.html')">
                     <h3>👤 Profil</h3>
                     <p>Admin profil bilgilerinizi düzenleyin</p>
                 </div>
 
-                <div class="dashboard-card">
+                <div class="dashboard-card" onclick="goToPage('security.html')">
                     <h3>🔐 Güvenlik</h3>
                     <p>Şifre ve güvenlik ayarlarını değiştirin</p>
                 </div>

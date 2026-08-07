@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>İstatistikler - Admin Panel</title>
+    <link rel="stylesheet" href="css/dashboard.css">
+    <link rel="stylesheet" href="css/pages.css">
+</head>
+<body>
+    <div class="dashboard-container">
+        <nav class="navbar">
+            <div class="navbar-brand">
+                <h1>Admin Panel</h1>
+            </div>
+            <div class="navbar-menu">
+                <a href="dashboard.html" class="nav-item">Anasayfa</a>
+                <a href="#" class="nav-item">Ayarlar</a>
+                <button onclick="logout()" class="nav-item logout-btn">Çıkış Yap</button>
+            </div>
+        </nav>
+
+        <div class="dashboard-content">
+            <div class="page-header">
+                <h2>📊 İstatistikler</h2>
+                <p>Sistem istatistikleri ve verilerini görüntüleyin</p>
+            </div>
+
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-icon">👥</div>
+                    <h3>Toplam Kullanıcı</h3>
+                    <p class="stat-number">1,243</p>
+                    <span class="stat-change">+12% bu ay</span>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-icon">📅</div>
+                    <h3>Toplam Ziyaret</h3>
+                    <p class="stat-number">5,847</p>
+                    <span class="stat-change">+8% bu ay</span>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-icon">💰</div>
+                    <h3>Toplam Gelir</h3>
+                    <p class="stat-number">₺45,230</p>
+                    <span class="stat-change">+25% bu ay</span>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-icon">⭐</div>
+                    <h3>Ortalama Rating</h3>
+                    <p class="stat-number">4.8/5</p>
+                    <span class="stat-change">+0.3 bu ay</span>
+                </div>
+            </div>
+
+            <div class="charts-section">
+                <h3>Son 7 Günün Aktivitesi</h3>
+                <div class="chart-placeholder">
+                    <p>Grafik verisi burada gösterilecek</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/app.js"></script>
+</body>
+</html>

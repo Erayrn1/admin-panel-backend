@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ayarlar - Admin Panel</title>
+    <link rel="stylesheet" href="css/dashboard.css">
+    <link rel="stylesheet" href="css/pages.css">
+</head>
+<body>
+    <div class="dashboard-container">
+        <nav class="navbar">
+            <div class="navbar-brand">
+                <h1>Admin Panel</h1>
+            </div>
+            <div class="navbar-menu">
+                <a href="dashboard.html" class="nav-item">Anasayfa</a>
+                <a href="settings.html" class="nav-item">Ayarlar</a>
+                <button onclick="logout()" class="nav-item logout-btn">Çıkış Yap</button>
+            </div>
+        </nav>
+
+        <div class="dashboard-content">
+            <div class="page-header">
+                <h2>⚙️ Ayarlar</h2>
+                <p>Panel ayarlarını ve tercihlerinizi yönetin</p>
+            </div>
+
+            <div class="settings-container">
+                <div class="settings-section">
+                    <h3>🌙 Görünüm Ayarları</h3>
+                    <div class="setting-item">
+                        <div class="setting-info">
+                            <p class="setting-label">Koyu Tema</p>
+                            <p class="setting-desc">Göz dostça koyu tasarım</p>
+                        </div>
+                        <div class="setting-control">
+                            <input type="checkbox" id="darkMode" checked>
+                        </div>
+                    </div>
+
+                    <div class="setting-item">
+                        <div class="setting-info">
+                            <p class="setting-label">Animasyonlar</p>
+                            <p class="setting-desc">Sayfada animasyonları göster</p>
+                        </div>
+                        <div class="setting-control">
+                            <input type="checkbox" id="animations" checked>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="settings-section">
+                    <h3>🔔 Bildirim Ayarları</h3>
+                    <div class="setting-item">
+                        <div class="setting-info">
+                            <p class="setting-label">Email Bildirimleri</p>
+                            <p class="setting-desc">Önemli olaylar hakkında bilgi al</p>
+                        </div>
+                        <div class="setting-control">
+                            <input type="checkbox" id="emailNotif" checked>
+                        </div>
+                    </div>
+
+                    <div class="setting-item">
+                        <div class="setting-info">
+                            <p class="setting-label">Günlük Özet</p>
+                            <p class="setting-desc">Her gün özet rapor gönder</p>
+                        </div>
+                        <div class="setting-control">
+                            <input type="checkbox" id="dailyReport" checked>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="settings-section">
+                    <h3>🔐 Gizlilik Ayarları</h3>
+                    <div class="setting-item">
+                        <div class="setting-info">
+                            <p class="setting-label">İstatistikleri Paylaş</p>
+                            <p class="setting-desc">Verilerimi herkese açık yap</p>
+                        </div>
+                        <div class="setting-control">
+                            <input type="checkbox" id="shareStats">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/app.js"></script>
+</body>
+</html>
