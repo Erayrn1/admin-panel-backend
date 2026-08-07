@@ -1,0 +1,175 @@
+/* ── Reset & Base ─────────────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --bg:        #080507;
+  --card-bg:   #0f0a0d;
+  --border:    #3a0a12;
+  --accent:    #e20f27;
+  --accent-dk: #a00b1c;
+  --text:      #f7f3f4;
+  --muted:     #9e8e92;
+  --glow:      rgba(226, 15, 39, 0.45);
+  --glow-soft: rgba(226, 15, 39, 0.15);
+  --radius:    10px;
+}
+
+html, body {
+  height: 100%;
+  font-family: 'Segoe UI', system-ui, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+}
+
+/* ── Atmospheric background ───────────────────────────────── */
+.bg-overlay {
+  position: fixed; inset: 0; z-index: 0;
+  background:
+    radial-gradient(ellipse 80% 60% at 50% 0%,   rgba(226,15,39,.07) 0%, transparent 70%),
+    radial-gradient(ellipse 60% 40% at 50% 100%,  rgba(226,15,39,.05) 0%, transparent 70%),
+    repeating-linear-gradient(
+      0deg,
+      transparent,
+      transparent 2px,
+      rgba(255,255,255,.01) 2px,
+      rgba(255,255,255,.01) 4px
+    );
+  pointer-events: none;
+}
+
+/* ── Layout ───────────────────────────────────────────────── */
+.center {
+  position: relative; z-index: 1;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1.5rem;
+}
+
+/* ── Card ─────────────────────────────────────────────────── */
+.card {
+  width: 100%;
+  max-width: 420px;
+  background: var(--card-bg);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 2.5rem 2rem;
+  box-shadow:
+    0 0 0 1px rgba(226,15,39,.1),
+    0 0 40px var(--glow-soft),
+    0 20px 60px rgba(0,0,0,.7);
+}
+
+/* ── Logo / Header ────────────────────────────────────────── */
+.logo {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.skull {
+  font-size: 2.8rem;
+  display: block;
+  margin-bottom: .4rem;
+  filter: drop-shadow(0 0 8px var(--glow));
+  animation: pulse 3s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { filter: drop-shadow(0 0 6px var(--glow)); }
+  50%       { filter: drop-shadow(0 0 18px var(--accent)); }
+}
+
+.logo h1 {
+  font-size: 1.75rem;
+  font-weight: 700;
+  letter-spacing: .06em;
+  color: var(--accent);
+  text-shadow: 0 0 20px var(--glow);
+}
+
+.subtitle {
+  font-size: .8rem;
+  color: var(--muted);
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  margin-top: .25rem;
+}
+
+/* ── Form Fields ──────────────────────────────────────────── */
+.field {
+  margin-bottom: 1.2rem;
+}
+
+.field label {
+  display: block;
+  font-size: .78rem;
+  font-weight: 600;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: .4rem;
+}
+
+.field input {
+  width: 100%;
+  padding: .75rem 1rem;
+  background: rgba(255,255,255,.04);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  color: var(--text);
+  font-size: .95rem;
+  outline: none;
+  transition: border-color .25s, box-shadow .25s;
+}
+
+.field input::placeholder {
+  color: #4a3a3e;
+}
+
+.field input:focus {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px var(--glow-soft), inset 0 0 8px rgba(226,15,39,.05);
+}
+
+/* ── Error ────────────────────────────────────────────────── */
+.error {
+  min-height: 1.2rem;
+  font-size: .85rem;
+  color: var(--accent);
+  text-align: center;
+  margin-bottom: .8rem;
+  text-shadow: 0 0 8px var(--glow);
+}
+
+/* ── Button ───────────────────────────────────────────────── */
+.btn-login {
+  width: 100%;
+  padding: .85rem;
+  background: var(--accent);
+  border: none;
+  border-radius: var(--radius);
+  color: #fff;
+  font-size: .95rem;
+  font-weight: 700;
+  letter-spacing: .12em;
+  cursor: pointer;
+  transition: background .2s, box-shadow .2s, transform .1s;
+  box-shadow: 0 4px 18px var(--glow-soft);
+}
+
+.btn-login:hover {
+  background: #f01f38;
+  box-shadow: 0 6px 28px var(--glow);
+}
+
+.btn-login:active {
+  transform: translateY(1px);
+  background: var(--accent-dk);
+}
+
+/* ── Responsive ───────────────────────────────────────────── */
+@media (max-width: 480px) {
+  .card { padding: 2rem 1.25rem; }
+  .logo h1 { font-size: 1.5rem; }
+}
