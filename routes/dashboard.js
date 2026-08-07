@@ -1,4 +1,5 @@
 const express = require('express');
+const { rateLimit } = require('express-rate-limit');
 
 const Reservation = require('../models/Reservation');
 const User = require('../models/User');
@@ -13,7 +14,19 @@ const sendResponse = (res, statusCode, success, message, data = {}) =>
     data,
   });
 
-router.get('/', protect, authorize('admin'), async (req, res, next) => {
+const dashboardRateLimit = rateLimit({
+  windowMs: 15 * 60 * 1000,
+  max: 200,
+  standardHeaders: true,
+  legacyHeaders: false,
+  message: {
+    success: false,
+    message: 'Too many requests, please try again later',
+    data: {},
+  },
+});
+
+router.get('/', dashboardRateLimit, protect, authorize('admin'), async (req, res, next) => {
   try {
     const [totalUsers, totalReservations, statusCounts, revenue] = await Promise.all([
       User.countDocuments({}),

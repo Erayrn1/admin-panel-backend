@@ -1,4 +1,5 @@
 const express = require('express');
+const { rateLimit } = require('express-rate-limit');
 
 const User = require('../models/User');
 const { authorize, protect } = require('../middleware/auth');
@@ -12,7 +13,19 @@ const sendResponse = (res, statusCode, success, message, data = {}) =>
     data,
   });
 
-router.get('/', protect, authorize('admin'), async (req, res, next) => {
+const usersRateLimit = rateLimit({
+  windowMs: 15 * 60 * 1000,
+  max: 150,
+  standardHeaders: true,
+  legacyHeaders: false,
+  message: {
+    success: false,
+    message: 'Too many requests, please try again later',
+    data: {},
+  },
+});
+
+router.get('/', usersRateLimit, protect, authorize('admin'), async (req, res, next) => {
   try {
     const users = await User.find({})
       .select('-password -resetPasswordToken -resetPasswordExpires')
