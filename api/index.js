@@ -2,6 +2,7 @@ require('dotenv').config();
 
 const express = require('express');
 const cors = require('cors');
+const { rateLimit } = require('express-rate-limit');
 
 const connectDB = require('../config/database');
 const authRoutes = require('../routes/auth');
@@ -59,7 +60,19 @@ app.use('/api/reservations', reservationRoutes);
 
 const { protect } = require('../middleware/auth');
 
-app.get('/api/dashboard', protect, (req, res) => {
+const dashboardRateLimit = rateLimit({
+  windowMs: 15 * 60 * 1000,
+  max: 100,
+  standardHeaders: true,
+  legacyHeaders: false,
+  message: {
+    success: false,
+    message: 'Too many requests, please try again later',
+    data: {},
+  },
+});
+
+app.get('/api/dashboard', dashboardRateLimit, protect, (req, res) => {
   res.status(200).json({
     success: true,
     message: 'Hoşgeldin Admin!',
