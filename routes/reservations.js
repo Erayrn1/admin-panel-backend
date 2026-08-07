@@ -61,13 +61,11 @@ const isValidPhoneNumber = (value) => {
   return digitCount >= 7;
 };
 
-router.use(
-  rateLimit({
-    windowMs: 15 * 60 * 1000,
-    max: 300,
-    keyPrefix: 'reservations',
-  })
-);
+const reservationRateLimit = rateLimit({
+  windowMs: 15 * 60 * 1000,
+  max: 300,
+  keyPrefix: 'reservations',
+});
 
 const validateReservationPayload = (payload, { partial = false } = {}) => {
   const requiredFields = ['date', 'time', 'numberOfPeople', 'phoneNumber', 'email'];
@@ -116,7 +114,7 @@ const validateReservationPayload = (payload, { partial = false } = {}) => {
 const canAccessReservation = (user, reservation) =>
   user.role === 'admin' || reservation.userId.toString() === user._id.toString();
 
-router.get('/', protect, async (req, res, next) => {
+router.get('/', reservationRateLimit, protect, async (req, res, next) => {
   try {
     const query = req.user.role === 'admin' ? {} : { userId: req.user._id };
     const reservations = await Reservation.find(query).sort({ date: 1, time: 1 });
@@ -129,7 +127,7 @@ router.get('/', protect, async (req, res, next) => {
   }
 });
 
-router.post('/', protect, async (req, res, next) => {
+router.post('/', reservationRateLimit, protect, async (req, res, next) => {
   try {
     const validationError = validateReservationPayload(req.body);
 
@@ -157,7 +155,7 @@ router.post('/', protect, async (req, res, next) => {
   }
 });
 
-router.get('/stats/overview', protect, authorize('admin'), async (req, res, next) => {
+router.get('/stats/overview', reservationRateLimit, protect, authorize('admin'), async (req, res, next) => {
   try {
     const [totals] = await Reservation.aggregate([
       {
@@ -192,7 +190,7 @@ router.get('/stats/overview', protect, authorize('admin'), async (req, res, next
   }
 });
 
-router.get('/:id', protect, async (req, res, next) => {
+router.get('/:id', reservationRateLimit, protect, async (req, res, next) => {
   try {
     if (!mongoose.Types.ObjectId.isValid(req.params.id)) {
       return sendResponse(res, 400, false, 'Invalid reservation ID');
@@ -216,7 +214,7 @@ router.get('/:id', protect, async (req, res, next) => {
   }
 });
 
-router.put('/:id', protect, async (req, res, next) => {
+router.put('/:id', reservationRateLimit, protect, async (req, res, next) => {
   try {
     if (!mongoose.Types.ObjectId.isValid(req.params.id)) {
       return sendResponse(res, 400, false, 'Invalid reservation ID');
@@ -259,7 +257,7 @@ router.put('/:id', protect, async (req, res, next) => {
   }
 });
 
-router.delete('/:id', protect, authorize('admin'), async (req, res, next) => {
+router.delete('/:id', reservationRateLimit, protect, authorize('admin'), async (req, res, next) => {
   try {
     if (!mongoose.Types.ObjectId.isValid(req.params.id)) {
       return sendResponse(res, 400, false, 'Invalid reservation ID');

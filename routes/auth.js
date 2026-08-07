@@ -39,13 +39,11 @@ const createToken = (user) =>
     expiresIn: '7d',
   });
 
-router.use(
-  rateLimit({
-    windowMs: 15 * 60 * 1000,
-    max: 50,
-    keyPrefix: 'auth',
-  })
-);
+const authRateLimit = rateLimit({
+  windowMs: 15 * 60 * 1000,
+  max: 50,
+  keyPrefix: 'auth',
+});
 
 const validateRegistration = ({ firstName, lastName, email, password }) => {
   if (!firstName || !lastName || !email || !password) {
@@ -63,7 +61,7 @@ const validateRegistration = ({ firstName, lastName, email, password }) => {
   return null;
 };
 
-router.post('/register', async (req, res, next) => {
+router.post('/register', authRateLimit, async (req, res, next) => {
   try {
     const { firstName, lastName, email, password } = req.body;
     const validationError = validateRegistration({ firstName, lastName, email, password });
@@ -105,7 +103,7 @@ router.post('/register', async (req, res, next) => {
   }
 });
 
-router.post('/login', async (req, res, next) => {
+router.post('/login', authRateLimit, async (req, res, next) => {
   try {
     const { email, password } = req.body;
 
@@ -141,7 +139,7 @@ router.post('/login', async (req, res, next) => {
   }
 });
 
-router.post('/forgot-password', async (req, res, next) => {
+router.post('/forgot-password', authRateLimit, async (req, res, next) => {
   try {
     const { email } = req.body;
 
@@ -169,7 +167,7 @@ router.post('/forgot-password', async (req, res, next) => {
   }
 });
 
-router.post('/reset-password', async (req, res, next) => {
+router.post('/reset-password', authRateLimit, async (req, res, next) => {
   try {
     const { token, password } = req.body;
 
@@ -204,7 +202,7 @@ router.post('/reset-password', async (req, res, next) => {
   }
 });
 
-router.get('/verify', protect, async (req, res) =>
+router.get('/verify', authRateLimit, protect, async (req, res) =>
   sendResponse(res, 200, true, 'Token is valid', {
     user: {
       id: req.user._id,
