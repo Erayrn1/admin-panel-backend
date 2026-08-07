@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>👻 Korku Evi - Dashboard</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <!-- Background elements -->
+  <div class="bg-overlay"></div>
+  <div class="web web-tl"></div>
+  <div class="web web-tr"></div>
+
+  <!-- Floating ghosts -->
+  <div class="ghost ghost-1">👻</div>
+  <div class="ghost ghost-2">👻</div>
+
+  <!-- Floating skulls -->
+  <div class="skull skull-1">💀</div>
+  <div class="skull skull-4">🦇</div>
+  <div class="skull skull-5">🦇</div>
+
+  <!-- Blood drips -->
+  <div class="drip drip-1"></div>
+  <div class="drip drip-3"></div>
+  <div class="drip drip-5"></div>
+
+  <!-- Dashboard -->
+  <div class="dashboard-container">
+    <header class="dashboard-header">
+      <h1 class="dashboard-title glitch" data-text="👻 KORKU EVİ PANELİ">👻 KORKU EVİ PANELİ</h1>
+      <button class="logout-btn" id="logoutBtn">🚪 ÇIKIŞ YAP</button>
+    </header>
+
+    <div class="welcome-card">
+      <h2>🌙 Hoş Geldin, <span id="adminName">Admin</span>!</h2>
+      <p>
+        Karanlığın derinliklerine girdin... Panel seni bekliyor. 🕷️<br />
+        Durum: <span class="status-badge">✅ Giriş Yapıldı</span>
+      </p>
+    </div>
+
+    <div class="stats-grid">
+      <div class="stat-card">
+        <span class="stat-icon">👻</span>
+        <div class="stat-label">HAYALETLER</div>
+        <div class="stat-value" id="ghostCount">13</div>
+      </div>
+      <div class="stat-card">
+        <span class="stat-icon">💀</span>
+        <div class="stat-label">KAFATASLAR</div>
+        <div class="stat-value" id="skullCount">666</div>
+      </div>
+      <div class="stat-card">
+        <span class="stat-icon">🦇</span>
+        <div class="stat-label">YARASALAR</div>
+        <div class="stat-value" id="batCount">99</div>
+      </div>
+      <div class="stat-card">
+        <span class="stat-icon">🕷️</span>
+        <div class="stat-label">ÖRÜMCEKLER</div>
+        <div class="stat-value" id="spiderCount">777</div>
+      </div>
+    </div>
+
+    <div class="welcome-card">
+      <h2>🔑 Oturum Bilgileri</h2>
+      <p id="sessionInfo">Yükleniyor...</p>
+    </div>
+  </div>
+
+  <script src="dashboard.js"></script>
+</body>
+</html>
