@@ -1,0 +1,137 @@
+/* ── Reset & Base ─────────────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --bg:        #080507;
+  --nav-bg:    #0f0a0d;
+  --card-bg:   #100b0e;
+  --border:    #3a0a12;
+  --accent:    #e20f27;
+  --text:      #f7f3f4;
+  --muted:     #9e8e92;
+  --glow:      rgba(226,15,39,.45);
+  --glow-soft: rgba(226,15,39,.15);
+  --radius:    10px;
+}
+
+html, body {
+  min-height: 100%;
+  font-family: 'Segoe UI', system-ui, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+}
+
+.bg-overlay {
+  position: fixed; inset: 0; z-index: 0;
+  background: radial-gradient(ellipse 80% 50% at 50% 0%, rgba(226,15,39,.06) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+/* ── Navbar ───────────────────────────────────────────────── */
+.navbar {
+  position: relative; z-index: 10;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: .9rem 1.75rem;
+  background: var(--nav-bg);
+  border-bottom: 1px solid var(--border);
+  box-shadow: 0 2px 20px rgba(0,0,0,.5);
+}
+
+.navbar-brand {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--accent);
+  letter-spacing: .05em;
+  display: flex;
+  align-items: center;
+  gap: .5rem;
+}
+
+.btn-logout {
+  padding: .45rem 1.1rem;
+  background: transparent;
+  border: 1px solid var(--accent);
+  border-radius: var(--radius);
+  color: var(--accent);
+  font-size: .82rem;
+  font-weight: 600;
+  letter-spacing: .06em;
+  cursor: pointer;
+  transition: background .2s, color .2s;
+}
+
+.btn-logout:hover {
+  background: var(--accent);
+  color: #fff;
+}
+
+/* ── Content ──────────────────────────────────────────────── */
+.content {
+  position: relative; z-index: 1;
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 2rem 1.5rem;
+}
+
+/* ── Welcome card ─────────────────────────────────────────── */
+.welcome-card {
+  background: var(--card-bg);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 1.75rem 2rem;
+  margin-bottom: 2rem;
+  box-shadow: 0 0 30px var(--glow-soft);
+}
+
+.welcome-card h1 {
+  font-size: 1.6rem;
+  margin-bottom: .4rem;
+}
+
+.welcome-card .accent { color: var(--accent); }
+
+.welcome-card .sub {
+  color: var(--muted);
+  font-size: .9rem;
+}
+
+/* ── Grid ─────────────────────────────────────────────────── */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+  gap: 1rem;
+}
+
+.widget {
+  background: var(--card-bg);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 1.5rem 1rem;
+  text-align: center;
+  cursor: pointer;
+  transition: border-color .2s, box-shadow .2s, transform .15s;
+}
+
+.widget:hover {
+  border-color: var(--accent);
+  box-shadow: 0 0 16px var(--glow-soft);
+  transform: translateY(-2px);
+}
+
+.widget-icon { font-size: 2rem; margin-bottom: .5rem; }
+
+.widget-label {
+  font-size: .82rem;
+  font-weight: 600;
+  letter-spacing: .07em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+/* ── Responsive ───────────────────────────────────────────── */
+@media (max-width: 480px) {
+  .navbar { padding: .75rem 1rem; }
+  .welcome-card { padding: 1.25rem 1rem; }
+}

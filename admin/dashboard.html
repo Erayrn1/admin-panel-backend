@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Karanlık Hat – Dashboard</title>
+  <link rel="stylesheet" href="css/dashboard.css" />
+</head>
+<body>
+  <div class="bg-overlay"></div>
+
+  <nav class="navbar">
+    <div class="navbar-brand">
+      <span>💀</span> Karanlık Hat Admin
+    </div>
+    <button id="logoutBtn" class="btn-logout">Çıkış Yap</button>
+  </nav>
+
+  <main class="content">
+    <div class="welcome-card">
+      <h1>Hoş Geldin, <span class="accent">erayrn</span> 👋</h1>
+      <p class="sub">Karanlık Hat Korku Evi Admin Paneline hoş geldiniz.</p>
+    </div>
+
+    <div class="grid">
+      <div class="widget">
+        <div class="widget-icon">🎟️</div>
+        <div class="widget-label">Biletler</div>
+      </div>
+      <div class="widget">
+        <div class="widget-icon">📅</div>
+        <div class="widget-label">Rezervasyonlar</div>
+      </div>
+      <div class="widget">
+        <div class="widget-icon">👥</div>
+        <div class="widget-label">Ziyaretçiler</div>
+      </div>
+      <div class="widget">
+        <div class="widget-icon">⚙️</div>
+        <div class="widget-label">Ayarlar</div>
+      </div>
+    </div>
+  </main>
+
+  <script>
+    (function () {
+      var AUTH_KEY = 'kh_admin_token';
+      if (!localStorage.getItem(AUTH_KEY)) {
+        window.location.href = 'index.html';
+      }
+      document.getElementById('logoutBtn').addEventListener('click', function () {
+        localStorage.removeItem(AUTH_KEY);
+        window.location.href = 'index.html';
+      });
+    }());
+  </script>
+</body>
+</html>
