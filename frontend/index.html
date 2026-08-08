@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>👻 KORKU EVİ PANELİ</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <!-- Animated background elements -->
+  <div class="bg-overlay"></div>
+
+  <!-- Spider webs -->
+  <div class="web web-tl"></div>
+  <div class="web web-tr"></div>
+
+  <!-- Floating ghosts -->
+  <div class="ghost ghost-1">👻</div>
+  <div class="ghost ghost-2">👻</div>
+  <div class="ghost ghost-3">👻</div>
+
+  <!-- Floating skulls/bats -->
+  <div class="skull skull-1">💀</div>
+  <div class="skull skull-2">💀</div>
+  <div class="skull skull-3">🦴</div>
+  <div class="skull skull-4">🦇</div>
+  <div class="skull skull-5">🦇</div>
+
+  <!-- Dripping blood effect -->
+  <div class="drip drip-1"></div>
+  <div class="drip drip-2"></div>
+  <div class="drip drip-3"></div>
+  <div class="drip drip-4"></div>
+  <div class="drip drip-5"></div>
+
+  <!-- Eyes that follow cursor -->
+  <div class="eyes-container" id="eyesContainer">
+    <div class="eye-pair">
+      <div class="eye" id="eye1"><div class="pupil" id="pupil1"></div></div>
+      <div class="eye" id="eye2"><div class="pupil" id="pupil2"></div></div>
+    </div>
+  </div>
+
+  <!-- Warning overlay for errors -->
+  <div class="warning-overlay" id="warningOverlay">
+    <div class="warning-box">
+      <span class="warning-icon">☠️</span>
+      <p id="warningMsg">Hatalı Kullanıcı Adı veya Şifre!</p>
+      <button onclick="closeWarning()">TAMAM</button>
+    </div>
+  </div>
+
+  <!-- Main login container -->
+  <main class="container">
+    <div class="login-box" id="loginBox">
+      <div class="title-wrapper">
+        <h1 class="title glitch" data-text="KORKU EVİ PANELİ">KORKU EVİ PANELİ</h1>
+        <p class="subtitle">⚰️ Buraya Girmen Yasak ⚰️</p>
+      </div>
+
+      <form id="loginForm" autocomplete="off">
+        <div class="field-group">
+          <label for="username">🕷️ Kullanıcı Adı</label>
+          <div class="input-wrapper">
+            <input
+              type="text"
+              id="username"
+              name="username"
+              value="erayrn"
+              placeholder="Adını fısılda..."
+              required
+            />
+            <span class="input-icon">🦇</span>
+          </div>
+        </div>
+
+        <div class="field-group">
+          <label for="password">🔐 Şifre</label>
+          <div class="input-wrapper">
+            <input
+              type="password"
+              id="password"
+              name="password"
+              placeholder="Sırrını sakla..."
+              required
+            />
+            <span class="input-icon">💀</span>
+          </div>
+        </div>
+
+        <button type="submit" class="login-btn" id="loginBtn">
+          <span class="btn-text">AYDIR KAPIYI 🚪</span>
+          <span class="btn-loading" id="btnLoading" style="display:none;">⏳ Girilyor...</span>
+        </button>
+      </form>
+
+      <div class="error-msg" id="errorMsg"></div>
+
+      <div class="footer-text">
+        <p>🌙 Karanlığa hoş geldin... 🌙</p>
+      </div>
+    </div>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>
