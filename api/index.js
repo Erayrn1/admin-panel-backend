@@ -4,9 +4,9 @@ const express = require('express');
 const cors = require('cors');
 const { rateLimit } = require('express-rate-limit');
 
-const connectDB = require('./config/database');
-const authRoutes = require('./routes/auth');
-const reservationRoutes = require('./routes/reservations');
+const connectDB = require('../config/database');
+const authRoutes = require('../routes/auth');
+const reservationRoutes = require('../routes/reservations');
 
 const app = express();
 
@@ -58,7 +58,7 @@ app.get('/api/health', (req, res) => {
 app.use('/api/auth', authRoutes);
 app.use('/api/reservations', reservationRoutes);
 
-const { protect } = require('./middleware/auth');
+const { protect } = require('../middleware/auth');
 
 const dashboardRateLimit = rateLimit({
   windowMs: 15 * 60 * 1000,
@@ -123,7 +123,4 @@ if (require.main === module) {
   });
 }
 
-module.exports = {
-  app,
-  startServer,
-};
+module.exports = app;
